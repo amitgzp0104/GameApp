@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 export class BookService
 {
   //this will contain all the books as book object
-  private apiUrl: string = 'http://localhost:3000';
+  // private apiUrl: string = 'http://localhost:3000';
+  private apiUrl: string = 'http://165.22.222.105:3000';
   private allBooks:Book[]=[];
 
   constructor(private httpClient: HttpClient) { }
@@ -82,13 +83,17 @@ export class BookService
 
   updateBook(book:Book)
   {
-      for(let i=0;i<this.allBooks.length;i++)
-      {
-        if(this.allBooks[i].id===book.id)
-        {
-          this.allBooks[i]=book;
-        }
-      }
+      // for(let i=0;i<this.allBooks.length;i++)
+      // {
+      //   if(this.allBooks[i].id===book.id)
+      //   {
+      //     this.allBooks[i]=book;
+      //   }
+      // }
+
+      let url = this.apiUrl+'/updateBook/'+book.id;
+      const headers = new HttpHeaders({ 'Content-Type' : 'application/json '});
+      return this.httpClient.put<Book>(url, book, {headers});
   }
 
 }

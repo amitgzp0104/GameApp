@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookService } from '../Services/book.service';
 import { Book } from '../Model/book';
+import { response } from 'express';
 
 @Component({
   selector: 'app-update',
@@ -20,18 +21,31 @@ export class UpdateComponent {
       this.id=this.activatedRoute.snapshot.paramMap.get('id');
   }
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
-      if(this.id!=undefined)
-        {
-        // this.book= this.bookService.getBookById(this.id);
-        }
+    if(this.id!=undefined)
+      {
+        this.bookService.getBookById(this.id).subscribe(
+          {
+            next:responseBook=>{this.book=responseBook;}
+            ,
+            error:err=>{alert(err);}
+          }
+        );
+      }
   }
 
-  onBookUpdateFormSumbit(bookUpdateForm:NgForm)
+  onBookUpdateFormSubmit(bookUpdateForm:NgForm)
   {
-    this.bookService.updateBook(this.book);
-    alert("BOOK UPDATED");
+    this.bookService.updateBook(this.book).subscribe(
+      {
+        next:responseBook=>
+          { alert("BOOK UPDATED");}
+        ,
+        error:err=>{alert(err);}
+      }
+    )
     this.router.navigate(['/detail',this.book.id]);
+
   }
 }

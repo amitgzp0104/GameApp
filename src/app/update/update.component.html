@@ -1,6 +1,6 @@
 <h1>BOOK APP</h1>
 <h4>UPDATE THE BOOK</h4>
-<form #bookUpdateForm="ngForm" (ngSubmit)="onBookUpdateFormSumbit(bookUpdateForm)">
+<form #bookUpdateForm="ngForm" (ngSubmit)="onBookUpdateFormSubmit(bookUpdateForm)">
     <input placeholder="title" type="text" name="title" [(ngModel)]="book.title" required/>
     <br/><br/>
     <input placeholder="author" type="text" name="author" [(ngModel)]="book.author" required/>
